@@ -14,9 +14,9 @@ def create_app(configuracion=None):
     app = Flask(__name__, instance_relative_config=True)
 
     # # Configuracion de BD
-    # app.config['SQLALCHEMY_DATABASE_URI'] =\
-    #         'sqlite:///' + os.path.join(basedir, 'database.db')
-    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_DATABASE_URI'] =\
+            'sqlite:///' + os.path.join(basedir, 'database-recepcion-orden.db')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     #  # Inicializa la DB
     # from aeroalpes.config.db import init_db
