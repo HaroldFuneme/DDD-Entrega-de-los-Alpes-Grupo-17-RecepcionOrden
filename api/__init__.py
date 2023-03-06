@@ -2,12 +2,13 @@ import os
 
 from flask import Flask, render_template, request, url_for, redirect, jsonify
 from flask_swagger import swagger
+from infraestructura.dto import Orden
 
 # Identifica el directorio base
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def importar_modelos_alchemy():
-    import aeroalpes.modulos.vuelos.infraestructura.dto
+    from infraestructura.dto import Orden
 
 def create_app(configuracion=None):
     # Init la aplicacion de Flask
@@ -19,15 +20,24 @@ def create_app(configuracion=None):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     #  # Inicializa la DB
-    # from aeroalpes.config.db import init_db
-    # init_db(app)
+    from config.db import init_db
+    init_db(app)
 
-    # from aeroalpes.config.db import db
+    from config.db import db
+    
 
-    # importar_modelos_alchemy()
+    importar_modelos_alchemy()
 
-    # with app.app_context():
-    #     db.create_all()
+    ## TEST DB
+    with app.app_context():
+        db.create_all()
+        ord = Orden(user="usuario1")
+        db.session.add(ord)
+        db.session.commit()
+        print(Orden.query.all())
+
+    
+
 
     #  # Importa Blueprints
     # from . import cliente
@@ -45,15 +55,15 @@ def create_app(configuracion=None):
     # app.register_blueprint(vehiculos.bp)
     # app.register_blueprint(vuelos.bp)
 
-    # @app.route("/spec")
-    # def spec():
-    #     swag = swagger(app)
-    #     swag['info']['version'] = "1.0"
-    #     swag['info']['title'] = "My API"
-    #     return jsonify(swag)
+    @app.route("/spec")
+    def spec():
+        swag = swagger(app)
+        swag['info']['version'] = "1.0"
+        swag['info']['title'] = "Microservicio RecepcionOrden"
+        return jsonify(swag)
 
-    # @app.route("/health")
-    # def health():
-    #     return {"status": "up"}
+    @app.route("/health")
+    def health():
+        return {"status": "up"}
 
     return app
