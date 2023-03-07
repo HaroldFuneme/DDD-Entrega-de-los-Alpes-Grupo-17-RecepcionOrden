@@ -6,7 +6,7 @@ Microservicio de recepción de orden: Este microservicio se encargaría de recib
 docker build -t recepcion-orden .
 
 ### Correr servicio con docker
-docker run -ti
+docker run -p 5000:5000 recepcion-orden
 
 ### Correr servicio con flask
  flask --app api run
