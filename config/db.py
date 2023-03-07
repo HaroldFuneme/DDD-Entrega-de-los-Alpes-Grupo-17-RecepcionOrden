@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
+
 import os
 
 db = None
@@ -14,14 +15,14 @@ class DatabaseConfigException(Exception):
         super().__init__(self.message)
 
 
-def database_connection(config, basedir=os.path.abspath(os.path.dirname(__file__))) -> str:
-    if not isinstance(config,dict):
-        raise DatabaseConfigException
+# def database_connection(config, basedir=os.path.abspath(os.path.dirname(__file__))) -> str:
+#     if not isinstance(config,dict):
+#         raise DatabaseConfigException
     
-    if config.get('TESTING', False) == True:
-        return f'sqlite:///{os.path.join(basedir, "database.db")}'
-    else:
-        return f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOSTNAME}/reservas'
+#     if config.get('TESTING', False) == True:
+#         return f'sqlite:///{os.path.join(basedir, "database-recepcion-orden.db")}'
+#     else:
+#         return f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOSTNAME}/recepcion_orden'
 
 
 def init_db(app: Flask):
