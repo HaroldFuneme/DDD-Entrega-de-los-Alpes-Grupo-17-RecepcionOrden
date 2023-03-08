@@ -2,6 +2,7 @@ import os
 
 import sqlalchemy
 
+
 from infraestructura.dto import db
 
 from flask import Flask, render_template, request, url_for, redirect, jsonify
@@ -38,6 +39,9 @@ def create_app(configuracion=None):
 
     # # Registro de Blueprints
     # app.register_blueprint(vuelos.bp)
+    from api.recepcion_orden import recepcion_orden_bp
+
+    app.register_blueprint(recepcion_orden_bp)
 
     @app.route("/spec")
     def spec():
@@ -51,3 +55,4 @@ def create_app(configuracion=None):
         return {"status": "up"}
 
     return app
+    

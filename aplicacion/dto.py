@@ -10,12 +10,5 @@ class OrdenDTO(DTO):
     event_data_format: str
     user: str
     user_addres: str
-    items: List[str]
+    items: List[str] = None
 
-    def __init__(self, event_id: int, event_name: str, event_data_format: str, user: str, user_addres: str, items: List[str]) -> None:
-        self.event_id = event_id
-        self.event_name = event_name
-        self.event_data_format = event_data_format
-        self.user = user
-        self.user_addres = user_addres
-        self.items = items
