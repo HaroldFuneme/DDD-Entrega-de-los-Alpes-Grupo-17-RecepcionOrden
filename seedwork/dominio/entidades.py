@@ -8,24 +8,13 @@ import uuid
 
 @dataclass
 class Entidad:
-    id: uuid.UUID = field(hash=True)
-    _id: uuid.UUID = field(init=False, repr=False, hash=True)
-    fecha_creacion: datetime =  field(default=datetime.now())
-    fecha_actualizacion: datetime = field(default=datetime.now())
-
-    @classmethod
-    def siguiente_id(self) -> uuid.UUID:
-        return uuid.uuid4()
+    user: str =  ""
+    user_address: str = ""
+    items = [] 
 
     @property
-    def id(self):
-        return self._id
-
-    @id.setter
-    def id(self, id: uuid.UUID) -> None:
-        if not IdEntidadEsInmutable(self).es_valido():
-            raise IdDebeSerInmutableExcepcion()
-        self._id = self.siguiente_id()
+    def orden_id(self):
+        return self.orden_id
         
 
 @dataclass

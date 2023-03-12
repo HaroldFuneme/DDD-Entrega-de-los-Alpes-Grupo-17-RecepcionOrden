@@ -1,10 +1,10 @@
 from aplicacion.dto import OrdenDTO
 from aplicacion.mapeadores import MapeadorOrden
-from infraestructura.dto import Orden
-from dominio.fabricas import FabricaOrden
-from dominio.repositorios import RepositorioOrdenes
-from infraestructura.fabricas import FabricaRepositorio
+from dominio.entidades import Orden
 from seedwork.aplicacion.servicios import Servicio
+from dominio.fabricas import FabricaOrden
+from infraestructura.fabricas import FabricaRepositorio
+from dominio.repositorios import RepositorioOrdenes
 
 
 class ServicioRecepcionOrden(Servicio):
@@ -25,10 +25,13 @@ class ServicioRecepcionOrden(Servicio):
     def crear_recepcion_orden(self, recepcion_orden_dto: OrdenDTO) -> OrdenDTO:
 
         orden: Orden = self._fabrica_orden.crear_objeto(recepcion_orden_dto, MapeadorOrden())
-        print("Orden generada por fabrica de orden: ", orden)
+        print("\nOrden generada por fabrica de orden para SAVE DB: ", orden)
+        print("\n")
 
+        ## VERIFICAR
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioOrdenes.__class__)
         print("RepositorioOrdenes generada por fabrica de repositorio: ", repositorio)
+        print("\n")
         repositorio.agregar(orden)
 
         #return res

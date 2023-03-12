@@ -21,8 +21,7 @@ def recepcion_orden():
         sr = ServicioRecepcionOrden()
         dto_final = sr.crear_recepcion_orden(recepcion_orden_dto)
 
-        # return recepcion_orden.dto_a_externo(dto_final)
-        return recepcion_orden_dto
+        return map_recepcion_orden.dto_a_externo(dto_final)
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
     

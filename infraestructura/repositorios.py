@@ -47,23 +47,30 @@ class RepositorioOrdenesSQLite(RepositorioOrdenes):
         raise NotImplementedError
 
     def agregar(self, orden: any):
+        print("RepositorioOrdenesSQLite obj para agregar DB: ", orden)
+        print("\n")
+        orden_dto = self.fabrica_ordenes.crear_objeto(orden, MapeadorOrden())
         db.create_all()
+    
+        items: Item = []
+        for i in orden.items:
+            items.append(i)
+        #ord = Orden(user=orden.user, user_address=orden.user.address, items=items)
+
+
         # item1 = Item(item='pantalon1')
         # item2 = Item(item='pantalon2')
         # item3 = Item(item='pantalon3')
-
-        # ord = Orden(user='usuario1', user_address='call 35 65 43', items=[item1,item2,item3])
-
         # db.session.add(ord)
         # db.session.add(item1)
         # db.session.add(item2)
         # db.session.add(item3)
         # db.session.commit()
-        db.session.add(orden)
-        for item in orden.items:
-            db.session.add(item)
+        # for item in orden.items:
+        #     db.session.add(item)
+
+        db.session.add(orden_dto)
         db.session.commit()
-        return orden
 
     def actualizar(self, orden: Orden):
         # TODO

@@ -1,3 +1,4 @@
+from uuid import uuid5
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 
@@ -42,7 +43,7 @@ def init_db(app: Flask):
         items = db.relationship('Item', secondary=orden_item_association, backref='ordenes')
 
         def __init__(self, user, user_address, items=[]):
-            self.id_orden = str(uuid.uuid4())
+            self.id_orden = str(uuid5.uuid4())
             self.user = user
             self.user_address = user_address
             self.items = items
@@ -58,7 +59,7 @@ def init_db(app: Flask):
         item = db.Column(db.String(128), nullable=False)
 
         def __init__(self, item):
-            self.id_item = str(uuid.uuid4())
+            self.id_item = str(uuid5.uuid4())
             self.item = item
 
         ##TODO BORRAR
