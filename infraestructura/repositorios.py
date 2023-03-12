@@ -1,7 +1,7 @@
 from ast import List
 from config.db import db
 from dominio.repositorios import RepositorioOrdenes, RepositorioProveedores
-from dominio.entidades import Orden
+from infraestructura.dto import Orden, Item
 from dominio.fabricas import FabricaOrden
 from .dto import Orden as OrdenDTO
 from .mapeadores import MapeadorOrden
@@ -46,10 +46,24 @@ class RepositorioOrdenesSQLite(RepositorioOrdenes):
         # TODO
         raise NotImplementedError
 
-    def agregar(self, orden: Orden):
-        orden_dto = self.fabrica_ordenes.crear_objeto(orden, MapeadorOrden())
-        db.session.add(orden_dto)
+    def agregar(self, orden: any):
+        db.create_all()
+        # item1 = Item(item='pantalon1')
+        # item2 = Item(item='pantalon2')
+        # item3 = Item(item='pantalon3')
+
+        # ord = Orden(user='usuario1', user_address='call 35 65 43', items=[item1,item2,item3])
+
+        # db.session.add(ord)
+        # db.session.add(item1)
+        # db.session.add(item2)
+        # db.session.add(item3)
+        # db.session.commit()
+        db.session.add(orden)
+        for item in orden.items:
+            db.session.add(item)
         db.session.commit()
+        return orden
 
     def actualizar(self, orden: Orden):
         # TODO

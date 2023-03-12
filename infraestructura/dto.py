@@ -12,20 +12,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 import os
 
-
-
-
-# Identifica el directorio base
-#basedir = os.path.abspath(os.path.dirname(__file__))
-
-# app = Flask(__name__, instance_relative_config=True)
-# app.config['SQLALCHEMY_DATABASE_URI'] =\
-#             'sqlite:///' + os.path.join(basedir, 'database-recepcion-orden.db')
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-
-
-
 db = SQLAlchemy()
 
 

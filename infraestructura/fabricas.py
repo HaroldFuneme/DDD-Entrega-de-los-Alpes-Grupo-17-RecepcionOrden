@@ -10,7 +10,7 @@ class FabricaRepositorio(Fabrica):
     def crear_objeto(self, obj: type, mapeador: any = None) -> Repositorio:
         if obj == RepositorioOrdenes.__class__:
             return RepositorioOrdenesSQLite()
-        elif obj == RepositorioProveedores.__class__:
+        elif obj == RepositorioProveedoresSQLite.__class__:
             return RepositorioProveedoresSQLite()
         else:
             raise "ExcepcionFabrica()"

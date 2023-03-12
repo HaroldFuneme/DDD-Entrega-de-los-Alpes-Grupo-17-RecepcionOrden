@@ -1,5 +1,8 @@
 from aplicacion.dto import OrdenDTO
-from dominio.entidades import Orden
+from aplicacion.mapeadores import MapeadorOrden
+from infraestructura.dto import Orden
+from dominio.fabricas import FabricaOrden
+from dominio.repositorios import RepositorioOrdenes
 from infraestructura.fabricas import FabricaRepositorio
 from seedwork.aplicacion.servicios import Servicio
 
@@ -7,23 +10,27 @@ from seedwork.aplicacion.servicios import Servicio
 class ServicioRecepcionOrden(Servicio):
 
     def __init__(self):
-        self._fabrica_orden: FabricaRepositorio = FabricaRepositorio()
-        #self._fabrica_vuelos: FabricaVuelos = FabricaVuelos()
+        self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()
+        self._fabrica_orden: FabricaOrden = FabricaOrden()
 
     @property
     def fabrica_repositorio(self):
         return self._fabrica_orden
     
-    # @property
-    # def fabrica_vuelos(self):
-    #     return self._fabrica_vuelos
+    @property
+    def fabrica_repositorio(self):
+        return self._fabrica_repositorio
+    
 
     def crear_recepcion_orden(self, recepcion_orden_dto: OrdenDTO) -> OrdenDTO:
-        # orden: Orden = self._fabrica_orden.crear_objeto(recepcion_orden_dto, Mapeadororden())
 
-        # repositorio = self.fabrica_repositorio.crear_objeto(Repositorioordens.__class__)
-        # repositorio.agregar(orden)
+        orden: Orden = self._fabrica_orden.crear_objeto(recepcion_orden_dto, MapeadorOrden())
+        print("Orden generada por fabrica de orden: ", orden)
 
-        # return self.fabrica_vuelos.crear_objeto(orden, Mapeadororden())
-        return recepcion_orden_dto
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioOrdenes.__class__)
+        print("RepositorioOrdenes generada por fabrica de repositorio: ", repositorio)
+        repositorio.agregar(orden)
+
+        #return res
+        return self._fabrica_orden.crear_objeto(orden, MapeadorOrden())
 
