@@ -18,8 +18,8 @@ Base = db.declarative_base()
 
 # Definición de la tabla de asociación
 orden_item_association = db.Table('orden_item_association',
-    db.Column('orden_id', db.Integer, db.ForeignKey('ordenes.id'), primary_key=True),
-    db.Column('item_id', db.Integer, db.ForeignKey('items.id'), primary_key=True)
+    db.Column('id_orden', db.Integer, db.ForeignKey('ordenes.id'), primary_key=True),
+    db.Column('id_item', db.Integer, db.ForeignKey('items.id'), primary_key=True)
 )
 class Orden(db.Model):
     __tablename__ = "ordenes"
@@ -42,7 +42,6 @@ class Orden(db.Model):
 class Item(db.Model):
     __tablename__ = "items"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)    
-    #id_item = db.Column(db.String(36), nullable=False, unique=True, server_default=text("uuid()"))
     id_item = db.Column(db.String(36), nullable=False, unique=True)
     item = db.Column(db.String(128), nullable=False)
 

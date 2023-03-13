@@ -74,10 +74,10 @@ class RepositorioOrdenesSQLite(RepositorioOrdenes):
         #     print("HHFMTT")
 
         orden_dto = self.fabrica_ordenes.crear_objeto(orden, MapeadorOrden())
-        db.create_all()
         db.session.add(orden_dto)
-        # for item in orden_dto.items:
-        #     db.session.add(item.item)
+        for item in orden.items:
+            db.session.add(Item(item=item.item))
+        db.session.flush()
         db.session.commit()
 
     def actualizar(self, orden: Orden):
