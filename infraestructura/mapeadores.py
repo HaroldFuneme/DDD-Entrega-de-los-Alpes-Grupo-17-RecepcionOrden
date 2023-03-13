@@ -11,23 +11,14 @@ class MapeadorOrden(Mapeador):
     def entidad_a_dto(self, entidad: Orden) -> OrdenDTO:
         print("MAP_INFRA  ENTIDAD TO DTO  --- ENTIDAD:  ", entidad)
         print("\n")
-        orden_dto = OrdenDTO()
 
-      
+        orden_dto = OrdenDTO(user=entidad.user, user_address=entidad.user_address)
+        #orden = Orden(user='destino@acme.com', user_address='Call 45 45 90', items=['item1','item2', 'item3'])
+        items_dto = []
+        for item in orden_dto.items:
+            items_dto.append(ItemDTO(item=item))
+        orden_dto.items = items_dto
 
-        item_dtos = []
-        for item in entidad.items:
-            item_dto = ItemDTO(item=item)
-            item_dtos.append(item_dto)
-        orden_dto.user = entidad.user
-        orden_dto.user_address = entidad.user_address
-        orden_dto.items = item_dtos
-        orden_dto.user = entidad.user
-        
-        # items_dto = list()
-        # for item in entidad.items:
-        #     items_dto.append(item)
-        # orden_dto.items = items_dto
 
         print("MAP_INFRA  ENTIDAD TO DTO  --- DTO:  ", orden_dto)
         print("\n")

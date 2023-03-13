@@ -58,9 +58,10 @@ class MapeadorOrden(RepMap):
     def entidad_a_dto(self, entidad: Orden) -> OrdenDTO:
         print("MAP_API ENTIDAD TO DTO  --- ENTIDAD:  ", entidad)
         print("\n")
-        print("MAP_API ENTIDAD TO DTO  --- DTO:  ", OrdenDTO(entidad.user, entidad.user_address, entidad.items))
+        orden_dto = OrdenDTO(event_id=entidad.eventId, event_name=entidad.eventName, event_data_format=entidad.eventDataFormat, user=entidad.user, user_address=entidad.user_address, items=entidad.items)
+        print("MAP_API ENTIDAD TO DTO  --- DTO:  ", orden_dto)
         print("\n")
-        return OrdenDTO(entidad.user, entidad.user_address, entidad.items)
+        return orden_dto
 
     def dto_a_entidad(self, dto: OrdenDTO) -> Orden:
         print("MAP_API DTO TO ENTIDAD -- DTO:  ", dto)
@@ -69,7 +70,7 @@ class MapeadorOrden(RepMap):
 
         #items_dto: list[any] = dto.items
         #orden = Orden(user=dto.user, user_address=dto.user_address, items=dto.items)
-        orden = Orden(user=dto.user, user_address=dto.user_address)
+        orden = Orden(eventId=dto.event_id, eventName=dto.event_name, eventDataFormat=dto.event_data_format, user=dto.user, user_address=dto.user_address)
         orden.items = [Item(item=item_dto) for item_dto in dto.items]
         
         print("MAP_API DTO TO ENTIDAD -- ENTIDAD:  ", orden)

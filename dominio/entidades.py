@@ -10,6 +10,9 @@ from sqlalchemy.orm import relationship
 
 @dataclass
 class Orden(AgregacionRaiz):
+    eventId: str = None
+    eventName: str = None
+    eventDataFormat: str = None
     user: str = None
     user_address: str = None
     items: list = field(default_factory=list)
