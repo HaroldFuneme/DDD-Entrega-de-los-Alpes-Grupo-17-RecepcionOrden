@@ -5,7 +5,7 @@ la infraestructura del dominio de RecepcionOrden
 
 """
 from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy import Column, ForeignKey, Integer, Table, text
+from sqlalchemy import Column, ForeignKey, Integer, Table, text, CheckConstraint
 import uuid
 from config.db import db
 
@@ -19,7 +19,10 @@ Base = db.declarative_base()
 # Definición de la tabla de asociación
 orden_item_association = db.Table('orden_item_association',
     db.Column('id_orden', db.Integer, db.ForeignKey('ordenes.id'), primary_key=True),
-    db.Column('id_item', db.Integer, db.ForeignKey('items.id'), primary_key=True)
+    db.Column('id_item', db.Integer, db.ForeignKey('items.id'), primary_key=True),
+    CheckConstraint('id_orden IS NOT NULL'),
+    CheckConstraint('id_item IS NOT NULL'),
+    db.UniqueConstraint('id_orden', 'id_item')
 )
 class Orden(db.Model):
     __tablename__ = "ordenes"
