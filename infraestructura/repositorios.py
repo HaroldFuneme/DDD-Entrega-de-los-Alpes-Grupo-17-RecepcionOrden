@@ -53,11 +53,11 @@ class RepositorioOrdenesSQLite(RepositorioOrdenes):
    
         item_dto = []
         for item in orden.items:
-            item_dt = Item(item=item.item)
+            item_dt = ItemDTO(item=item.item)
             db.session.add(item_dt)
             item_dto.append(item_dt)
 
-        ord = Orden(user=orden.user, user_address=orden.user_address, items=item_dto)
+        ord = OrdenDTO(user=orden.user, user_address=orden.user_address, items=item_dto)
         db.session.add(ord)
         print("RepositorioOrdenesSQLite obj agregado a DB: ", ord)
         print("\n")
