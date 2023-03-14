@@ -1,7 +1,9 @@
 from ast import List
 from config.db import db
 from dominio.repositorios import RepositorioOrdenes, RepositorioProveedores
-from .dto import Orden, Item
+from dominio.entidades import Orden
+from .dto import Item as ItemDTO
+from .dto import Orden as OrdenDTO
 from dominio.fabricas import FabricaOrden
 from .mapeadores import MapeadorOrden
 from uuid import UUID

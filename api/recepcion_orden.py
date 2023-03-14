@@ -3,9 +3,12 @@ import seedwork.presentacion.api as api
 from flask import Blueprint, Response, request
 from aplicacion.mapeadores import MapeadorRecepcionOrdenDTOJson
 from aplicacion.servicios import ServicioRecepcionOrden
+
+from aplicacion.queries.obtener_orden import ObtenerOrden
 from aplicacion.comandos.crear_orden import CrearOrden
 
 from seedwork.aplicacion.comandos import ejecutar_commando
+from seedwork.aplicacion.queries import ejecutar_query
 
 from seedwork.dominio.excepciones import ExcepcionDominio
 
@@ -54,3 +57,24 @@ def recepcion_orden_asincrona():
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
     
+@bp.route('/orden', methods=('GET',))
+@bp.route('/orden/<id>', methods=('GET',))
+def dar_orden(id=None):
+    if id:
+        sr = ServicioRecepcionOrden()
+        map_orden = MapeadorRecepcionOrdenDTOJson()
+        
+        return map_orden.dto_a_externo(sr.obtener_orden_por_id(id))
+    else:
+        return [{'message': 'GET!'}]
+
+@bp.route('/orden-query', methods=('GET',))
+@bp.route('/orden-query/<id>', methods=('GET',))
+def dar_orden_usando_query(id=None):
+    if id:
+        query_resultado = ejecutar_query(ObtenerOrden(id))
+        map_orden = MapeadorRecepcionOrdenDTOJson()
+        
+        return map_orden.dto_a_externo(query_resultado.resultado)
+    else:
+        return [{'message': 'GET!'}]

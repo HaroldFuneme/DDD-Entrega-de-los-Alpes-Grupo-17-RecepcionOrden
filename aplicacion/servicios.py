@@ -36,4 +36,8 @@ class ServicioRecepcionOrden(Servicio):
 
         #return res
         return self._fabrica_orden.crear_objeto(orden, MapeadorOrden())
+    
+    def obtener_orden_por_id(self, id) -> OrdenDTO:
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioOrdenes.__class__)
+        return self._fabrica_orden.crear_objeto(repositorio.obtener_por_id(id), MapeadorOrden())
 
