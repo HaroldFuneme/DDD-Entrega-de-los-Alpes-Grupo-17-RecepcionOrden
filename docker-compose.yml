@@ -1,0 +1,14 @@
+version: '3'
+
+networks:
+  orden:
+    driver: bridge
+services:
+  eda:
+    container_name: eda
+    hostname: eda
+    image: orden/flask 
+    networks:
+      - orden
+    ports:
+      - "5022:5000"

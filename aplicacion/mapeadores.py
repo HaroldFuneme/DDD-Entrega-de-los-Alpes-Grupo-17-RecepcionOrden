@@ -68,8 +68,6 @@ class MapeadorOrden(RepMap):
         orden = Orden()
         orden.items = list()
 
-        #items_dto: list[any] = dto.items
-        #orden = Orden(user=dto.user, user_address=dto.user_address, items=dto.items)
         orden = Orden(eventId=dto.event_id, eventName=dto.event_name, eventDataFormat=dto.event_data_format, user=dto.user, user_address=dto.user_address)
         orden.items = [Item(item=item_dto) for item_dto in dto.items]
         

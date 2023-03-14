@@ -13,7 +13,7 @@ class MapeadorOrden(Mapeador):
         print("\n")
 
         orden_dto = OrdenDTO(user=entidad.user, user_address=entidad.user_address)
-        #orden = Orden(user='destino@acme.com', user_address='Call 45 45 90', items=['item1','item2', 'item3'])
+        
         items_dto = []
         for item in orden_dto.items:
             items_dto.append(ItemDTO(item=item))
