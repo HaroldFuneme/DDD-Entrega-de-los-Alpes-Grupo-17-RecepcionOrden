@@ -49,8 +49,8 @@ def recepcion_orden_asincrona():
             recepcion_orden_dto.items
         )
         
-        # TODO Reemplaze es todo código sincrono y use el broker de eventos para propagar este comando de forma asíncrona
-        # Revise la clase Despachador de la capa de infraestructura
+        print("**********POST recepcion_orden_asincrona --COMANDO: ", comando)
+        print("\n")
         ejecutar_commando(comando)
         
         return Response('{}', status=202, mimetype='application/json')

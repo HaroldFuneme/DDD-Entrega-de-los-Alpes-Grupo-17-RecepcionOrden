@@ -48,7 +48,7 @@ class RepositorioOrdenesSQLite(RepositorioOrdenes):
         raise NotImplementedError
 
     def agregar(self, orden: any):
-        print("RepositorioOrdenesSQLite obj para agregar DB: ", orden)
+        print("RepositorioOrdenesSQLite obj para agregar DB --ORDEN: ", orden)
         print("\n")
    
         item_dto = []
@@ -59,7 +59,7 @@ class RepositorioOrdenesSQLite(RepositorioOrdenes):
 
         ord = OrdenDTO(user=orden.user, user_address=orden.user_address, items=item_dto)
         db.session.add(ord)
-        print("RepositorioOrdenesSQLite obj agregado a DB: ", ord)
+        print("RepositorioOrdenesSQLite obj agregado a DB --ORDENDTO: ", ord)
         print("\n")
 
         db.session.commit()
