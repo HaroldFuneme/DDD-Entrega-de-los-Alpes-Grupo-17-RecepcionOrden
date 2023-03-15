@@ -100,8 +100,30 @@ services:
     container_name: eda
     hostname: eda
     image: orden/flask 
+    profiles: ["eda"]
     networks:
       - orden
       - pulsar
+    labels:
+      SidecarDiscover: "false"
+    depends_on:
+      - broker
+    environment:
+      - EDA_ADDRESS=eda
+      - PULSAR_ADDRESS=broker
     ports:
       - "5022:5000"
+            
+    #Servicio para la interfaz web
+  pulsar-web:
+    container_name: pulsar-web
+    hostname: pulsar-web
+    image: apachepulsar/pulsar:latest
+    profiles: ["pulsar"]
+    networks:
+      - pulsar
+    ports:
+      - "8080:8080"
+    command: bin/pulsar standalone
+    depends_on:
+      - zookeeper

@@ -34,3 +34,10 @@ Si desea detener el ambiente ejecute:
 ```bash
 docker-compose stop
 ```
+
+
+
+### Correr docker-compose usando profiles
+```bash
+docker-compose --profile < zookeeper | pulsar | bookie | broker | eda   > up
+```

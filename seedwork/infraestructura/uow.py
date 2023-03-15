@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from enum import Enum
 
 from seedwork.dominio.entidades import AgregacionRaiz
-#from pydispatch import dispatcher
+from pydispatch import dispatcher
 
 import pickle
 

@@ -16,7 +16,7 @@ class CrearOrden(Comando):
     event_data_format: str
     user: str
     user_address: str
-    items: 'list[str]' = None
+    items: 'list[ItemDTO]'
 
 
 class CrearOrdenHandler(CrearOrdenBaseHandler):
@@ -24,7 +24,7 @@ class CrearOrdenHandler(CrearOrdenBaseHandler):
     def handle(self, comando: CrearOrden):
         orden_dto = OrdenDTO()
 
-        orden: Orden = self.fabrica_vuelos.crear_objeto(orden_dto, MapeadorOrden())
+        orden: Orden = self.fabrica_ordenes.crear_objeto(orden_dto, MapeadorOrden())
         orden.crear_orden(orden)
 
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioOrdenes.__class__)

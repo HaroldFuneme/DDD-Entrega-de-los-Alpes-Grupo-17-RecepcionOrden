@@ -15,7 +15,7 @@ class ObtenerOrdenHandler(OrdenQueryBaseHandler):
 
     def handle(self, query: ObtenerOrden) -> QueryResultado:
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioOrdenes.__class__)
-        orden =  self.fabrica_vuelos.crear_objeto(repositorio.obtener_por_id(query.id), MapeadorOrden())
+        orden =  self.fabrica_ordenes.crear_objeto(repositorio.obtener_por_id(query.id), MapeadorOrden())
         return QueryResultado(resultado=orden)
 
 @query.register(ObtenerOrden)

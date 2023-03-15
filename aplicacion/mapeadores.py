@@ -43,7 +43,22 @@ class MapeadorRecepcionOrdenDTOJson(AppMap):
     def dto_a_externo(self, dto: OrdenDTO) -> dict:
         print("MapeadorRecepcionOrdenDTOJson DTO TO EXTERNO: ", dto)
         print("\n")
-        return dto.__dict__
+        orden_dict = {}
+        item_dto= []
+        for item in dto.event_id:
+            item_dto.append(item)
+
+
+        # Agregar las claves y valores al diccionario
+        orden_dict['event_id'] = []
+        orden_dict['event_name'] = 'CrearOrden'
+        orden_dict['event_data_format'] = 'JSON'
+        orden_dict['user'] = dto.user
+        orden_dict['user_address'] = dto.user_address
+        orden_dict['items'] = []
+        #orden_dict['items'] = [item.__dict__ for item in dto.event_id]
+        #json_orden = jsonify(orden_dict)
+        return orden_dict
 
 class MapeadorOrden(RepMap):
     _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
