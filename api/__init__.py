@@ -1,6 +1,7 @@
 import os
 
 import sqlalchemy
+import pymysql
 
 from flask import Flask, jsonify
 from flask_swagger import swagger
@@ -31,7 +32,8 @@ def create_app(configuracion={}):
 
     # # Configuracion de BD
     #app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///' + os.path.join(basedir, 'database-recepcion-orden.db')
-    app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///database_recepcion_orden.db'
+    #app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///database_recepcion_orden.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] =f'mysql+pymysql://ordenes_despacho:ordenes_despacho@34.121.25.38:3306/recepcion_orden'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     app.secret_key = '9d58f98f-3ae8-4149-a09f-3a8c2012e32c'

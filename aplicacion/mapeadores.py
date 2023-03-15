@@ -25,21 +25,6 @@ class MapeadorRecepcionOrdenDTOJson(AppMap):
         print("MapeadorRecepcionOrdenDTOJson EXTERNO TO DTO: ", orden_dto)
         print("\n")
         return orden_dto
-        #return jsonify(orden_dto.__dict__)
-
-        # OrdenCreadaEvent = {
-        #     'eventId': event_id,
-        #     'eventName': event_name,
-        #     'eventDataFormat': event_data_format,
-        #     'payload': {
-        #     'ordenId': '',
-        #     'user': user,
-        #     'user_addres': user_addres,
-        #     'items': items,
-        #     }
-
-        # }
-        # return OrdenCreadaEvent
 
     def dto_a_externo(self, dto: OrdenDTO) -> dict:
         print("MapeadorRecepcionOrdenDTOJson DTO TO EXTERNO --DTO: ", dto)
@@ -89,7 +74,8 @@ class MapeadorOrden(RepMap):
         orden.items = list()
 
         orden = Orden(eventId=dto.event_id, eventName=dto.event_name, eventDataFormat=dto.event_data_format, user=dto.user, user_address=dto.user_address)
-        orden.items = [Item(item=item_dto) for item_dto in dto.items]
+        if dto.items != None:
+            orden.items = [Item(item=item_dto) for item_dto in dto.items]
         
         print("MAP_API DTO TO ENTIDAD -- ENTIDAD:  ", orden)
         print("\n")

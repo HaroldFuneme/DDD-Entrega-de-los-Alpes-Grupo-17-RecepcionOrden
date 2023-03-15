@@ -7,9 +7,13 @@ import uuid
 @dataclass
 class OrdenCreada(EventoDominio):
     id_orden: uuid.UUID = None
-    id_cliente: uuid.UUID = None
-    estado: str = None
-    fecha_creacion: datetime = None
+    eventDataFormat:  str = None
+    eventName: str = None
+    user: str = None
+    user_address: str = None
+    eventId: int = None
+    eventos = []
+    items = []
     
 @dataclass
 class OrdenCancelada(EventoDominio):

@@ -66,7 +66,7 @@ services:
     volumes:
       - ./data/bookkeeper:/pulsar/data/bookkeeper
     command: bash -c "bin/apply-config-from-env.py conf/bookkeeper.conf
-      && exec bin/pulsar standalone"
+      && exec bin/pulsar broker"
 # Start broker
   broker:
     image: apachepulsar/pulsar:latest
@@ -84,7 +84,8 @@ services:
       - managedLedgerDefaultWriteQuorum=1
       - managedLedgerDefaultAckQuorum=1
       - advertisedAddress=broker
-      - advertisedListeners=external:pulsar://127.0.0.1:6650
+      # - advertisedListeners=external:pulsar://127.0.0.1:6650
+      - advertisedListeners=external:pulsar://34.121.180.145:6650
     depends_on:
       zookeeper:
         condition: service_healthy
@@ -94,7 +95,7 @@ services:
       - "6650:6650"
       - "8080:8080"
     command: bash -c "bin/apply-config-from-env.py conf/broker.conf
-      &&  exec bin/pulsar standalone"        
+      &&  exec bin/pulsar broker"        
 # Servicio EDA RecepcionOrden 
   eda:
     container_name: eda
@@ -114,16 +115,3 @@ services:
     ports:
       - "5022:5000"
 
-    #Servicio para la interfaz web
-  pulsar-web:
-    container_name: pulsar-web
-    hostname: pulsar-web
-    image: apachepulsar/pulsar:latest
-    profiles: ["pulsar"]
-    networks:
-      - pulsar
-    ports:
-      - "8080:8080"
-    command: bin/pulsar standalone
-    depends_on:
-      - zookeeper

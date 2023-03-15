@@ -14,18 +14,23 @@ def unix_time_millis(dt):
 
 class Despachador:
     def _publicar_mensaje(self, mensaje, topico, schema):
-        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        #cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        cliente = pulsar.Client(f'pulsar://34.121.180.145:6650')
         publicador = cliente.create_producer(topico, schema=AvroSchema(EventoOrdenCreada))
         publicador.send(mensaje)
         cliente.close()
 
     def publicar_evento(self, evento, topico):
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del evento
+        print("publicar_evento EVENTO --: ", evento)
+        print("\n")
         payload = OrdenCreadaPayload(
-            id_orden=str(evento.id_orden), 
-            id_cliente=str(evento.id_cliente), 
-            estado=str(evento.estado), 
-            fecha_creacion=int(unix_time_millis(evento.fecha_creacion))
+            id_orden=str(evento.id),
+            fecha_evento= str(evento.fecha_evento),
+            event_format=str(evento.eventDataFormat), 
+            event_name=str(evento.eventName), 
+            user=str(evento.user), 
+            user_address=str(evento.user_address), 
         )
         evento_integracion = EventoOrdenCreada(data=payload)
         self._publicar_mensaje(evento_integracion, topico, AvroSchema(EventoOrdenCreada))

@@ -20,7 +20,7 @@ class UnidadTrabajoSQLAlchemy(UnidadTrabajo):
         return list[db.session.get_nested_transaction()]
 
     @property
-    def batches(self) -> list[Batch]:
+    def batches(self) -> 'list[Batch]':
         return self._batches             
 
     def commit(self):

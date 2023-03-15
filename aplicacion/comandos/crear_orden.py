@@ -22,7 +22,9 @@ class CrearOrden(Comando):
 class CrearOrdenHandler(CrearOrdenBaseHandler):
     
     def handle(self, comando: CrearOrden):
-        orden_dto = OrdenDTO()
+        print("CrearOrdenHandler COMANDO: ", comando)
+        print("\n")
+        orden_dto = OrdenDTO(comando.event_id, comando.event_name, comando.event_data_format, comando.user, comando.user_address)
 
         orden: Orden = self.fabrica_ordenes.crear_objeto(orden_dto, MapeadorOrden())
         orden.crear_orden(orden)

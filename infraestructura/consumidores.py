@@ -12,7 +12,8 @@ from seedwork.infraestructura import utils
 def suscribirse_a_eventos():
     cliente = None
     try:
-        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        cliente = pulsar.Client(f'pulsar://34.121.180.145:6650')
+        #cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('eventos-orden', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='eda-sub-eventos', schema=AvroSchema(EventoOrdenCreada))
 
         while True:
@@ -31,7 +32,8 @@ def suscribirse_a_eventos():
 def suscribirse_a_comandos():
     cliente = None
     try:
-        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        cliente = pulsar.Client(f'pulsar://34.121.180.145:6650')
+        #cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('comandos-orden', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='eda-sub-comandos', schema=AvroSchema(ComandoCrearOrden))
 
         while True:
