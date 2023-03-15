@@ -1,3 +1,4 @@
+import uuid
 from .dto import OrdenDTO, ItemDTO 
 from dominio.entidades import Orden, Item
 from seedwork.aplicacion.dto import Mapeador as AppMap
@@ -41,24 +42,28 @@ class MapeadorRecepcionOrdenDTOJson(AppMap):
         # return OrdenCreadaEvent
 
     def dto_a_externo(self, dto: OrdenDTO) -> dict:
-        print("MapeadorRecepcionOrdenDTOJson DTO TO EXTERNO: ", dto)
+        print("MapeadorRecepcionOrdenDTOJson DTO TO EXTERNO --DTO: ", dto)
         print("\n")
-        orden_dict = {}
+        orden_creada_dict = {}
         item_dto= []
-        for item in dto.event_id:
+        for item in dto.items:
             item_dto.append(item)
 
-
-        # Agregar las claves y valores al diccionario
-        orden_dict['event_id'] = []
-        orden_dict['event_name'] = 'CrearOrden'
-        orden_dict['event_data_format'] = 'JSON'
-        orden_dict['user'] = dto.user
-        orden_dict['user_address'] = dto.user_address
-        orden_dict['items'] = []
-        #orden_dict['items'] = [item.__dict__ for item in dto.event_id]
-        #json_orden = jsonify(orden_dict)
-        return orden_dict
+        # # Agregar las claves y valores al diccionario
+        orden_creada_dict['event_id'] = dto.event_id
+        orden_creada_dict['event_name'] = dto.event_name
+        orden_creada_dict['event_data_format'] = dto.event_data_format
+        orden_creada_dict['payload'] = {
+            'ordenId': str(uuid.uuid4()),
+            'user':  dto.user,
+            'user_address':  dto.user_address,
+            'items': [
+            dto.items
+            ]
+        }
+        print("MapeadorRecepcionOrdenDTOJson DTO TO EXTERNO --EXTERNO: ", orden_creada_dict)
+        print("\n")
+        return orden_creada_dict
 
 class MapeadorOrden(RepMap):
     _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
