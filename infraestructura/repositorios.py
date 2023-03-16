@@ -53,7 +53,8 @@ class RepositorioOrdenesSQLite(RepositorioOrdenes):
    
         item_dto = []
         for item in orden.items:
-            item_dt = ItemDTO(item=item.item)
+            #item_dt = ItemDTO(item=item.item)
+            item_dt = ItemDTO(item=item)
             db.session.add(item_dt)
             item_dto.append(item_dt)
 

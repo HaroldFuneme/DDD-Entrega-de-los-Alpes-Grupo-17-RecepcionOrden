@@ -14,13 +14,13 @@ def suscribirse_a_eventos():
     try:
         cliente = pulsar.Client(f'pulsar://34.121.180.145:6650')
         #cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('eventos-orden', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='eda-sub-eventos', schema=AvroSchema(EventoOrdenCreada))
+        consumidor = cliente.subscribe('eventos-orden-a', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='eda-sub-eventos', schema=AvroSchema(EventoOrdenCreada))
 
         while True:
             mensaje = consumidor.receive()
-            print(f'Evento recibido: {mensaje.value().data}')
+            print(f'Evento recibido: {mensaje.value().payload}')
 
-            consumidor.acknowledge(mensaje)     
+            #consumidor.acknowledge(mensaje)     
 
         cliente.close()
     except:
@@ -34,13 +34,13 @@ def suscribirse_a_comandos():
     try:
         cliente = pulsar.Client(f'pulsar://34.121.180.145:6650')
         #cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('comandos-orden', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='eda-sub-comandos', schema=AvroSchema(ComandoCrearOrden))
+        consumidor = cliente.subscribe('comandos-orden-a', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='eda-sub-comandos', schema=AvroSchema(ComandoCrearOrden))
 
         while True:
             mensaje = consumidor.receive()
             print(f'Comando recibido: {mensaje.value().data}')
 
-            consumidor.acknowledge(mensaje)     
+            #consumidor.acknowledge(mensaje)     
             
         cliente.close()
     except:
